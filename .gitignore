@@ -1,0 +1,33 @@
+# macOS system files
+.DS_Store
+
+# IntelliJ IDEA project files
+.idea/
+*.iml
+*.iws
+
+# Build directories
+/out/
+build/
+
+# Logs
+*.log
+
+# Dependency directories
+/node_modules/
+target/
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*.bak
+
+# Compiled files
+*.class
+*.jar
+*.war
+*.ear
+
+# OS generated files
+Thumbs.db
