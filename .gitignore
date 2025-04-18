@@ -31,3 +31,6 @@ target/
 
 # OS generated files
 Thumbs.db
+
+# Secrets
+secrets.json

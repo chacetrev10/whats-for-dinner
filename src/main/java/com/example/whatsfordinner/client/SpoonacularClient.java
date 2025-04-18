@@ -1,5 +1,6 @@
 package com.example.whatsfordinner.client;
 
+import com.example.whatsfordinner.config.SecretManager;
 import com.example.whatsfordinner.model.Recipe;
 import com.example.whatsfordinner.model.RecipeResponseList;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,10 +21,10 @@ public class SpoonacularClient {
   private final OkHttpClient client;
   private static final String BASE_URL = "https://api.spoonacular.com";
 
-  public SpoonacularClient() {
+  public SpoonacularClient(SecretManager secretManager) {
     this.mapper = new ObjectMapper();
     this.client = new OkHttpClient.Builder()
-        .addInterceptor(new HeaderInterceptor("x-api-key", "")).build();
+        .addInterceptor(new HeaderInterceptor("x-api-key", secretManager.getSecret("apiKey"))).build();
   }
 
   public List<Recipe> getRecipes(Map<String, String> params) {
