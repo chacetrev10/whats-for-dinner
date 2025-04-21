@@ -1,10 +1,8 @@
 package com.example.whatsfordinner.controller;
 
-import com.example.whatsfordinner.model.Recipe;
+import com.example.whatsfordinner.model.*;
 import com.example.whatsfordinner.service.RecipeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,8 +17,8 @@ public class RecipeController {
   }
 
 
-  @GetMapping
-  public List<Recipe> getRecipes(){
-    return recipeService.searchRecipes();
+  @PostMapping("/search")
+  public List<Recipe> searchRecipes(@RequestBody RecipeSearchRequest recipeSearchRequest) {
+    return recipeService.searchRecipes(recipeSearchRequest);
   }
 }

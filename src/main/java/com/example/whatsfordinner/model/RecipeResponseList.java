@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RecipeResponseList {
-
+  private int offset;
+  private int number;
   private List<Recipe> results;
 }
