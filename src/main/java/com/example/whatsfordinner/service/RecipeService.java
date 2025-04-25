@@ -4,12 +4,15 @@ import com.example.whatsfordinner.client.SpoonacularClient;
 import com.example.whatsfordinner.model.*;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.example.whatsfordinner.util.GeneralUtil.isNullOrEmpty;
 import static com.example.whatsfordinner.util.GeneralUtil.stringifyList;
+import static com.example.whatsfordinner.util.RecipeConstants.*;
 
 @Service
 public class RecipeService {
@@ -33,21 +36,33 @@ public class RecipeService {
 
 
     if (!isNullOrEmpty(recipeSearchRequest.getAllergens())) {
-      params.put("intolerances", stringifyList(recipeSearchRequest.getAllergens()));
+      params.put(INTOLERANCES, stringifyList(recipeSearchRequest.getAllergens()));
     }
 
     if (!isNullOrEmpty(recipeSearchRequest.getCuisines())) {
-      params.put("cuisine", stringifyList(recipeSearchRequest.getCuisines()));
+      params.put(CUISINE, stringifyList(recipeSearchRequest.getCuisines()));
     }
 
     if (!isNullOrEmpty(recipeSearchRequest.getDiets())) {
-      params.put("diet", stringifyList(recipeSearchRequest.getDiets()));
+      params.put(DIET, stringifyList(recipeSearchRequest.getDiets()));
     }
 
     if (recipeSearchRequest.getMaxReadyTime() != null) {
-      params.put("maxReadyTime", String.valueOf(recipeSearchRequest.getMaxReadyTime()));
+      params.put(MAX_READY_TIME, String.valueOf(recipeSearchRequest.getMaxReadyTime()));
     }
 
     return client.getRecipes(params);
+  }
+
+  public RecipeFilters getRecipeFilters(){
+    Map<String, List<String>> dropdowns = new HashMap<>();
+
+    dropdowns.put(INTOLERANCES, Arrays.stream(Allergen.values()).map(Allergen::getName).collect(Collectors.toList()));
+    dropdowns.put(CUISINE, Arrays.stream(Cuisine.values()).map(Cuisine::getName).collect(Collectors.toList()));
+    dropdowns.put(DIET, Arrays.stream(Diet.values()).map(Diet::getName).collect(Collectors.toList()));
+
+    List<String> inputs = List.of(MAX_READY_TIME);
+    return new RecipeFilters(dropdowns, inputs);
+
   }
 }

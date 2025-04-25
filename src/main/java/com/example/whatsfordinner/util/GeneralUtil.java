@@ -10,7 +10,7 @@ public class GeneralUtil {
   }
 
   public static <T> String stringifyList(List<T> list){
-    return list.stream()
+    return list == null ? "" : list.stream()
         .map(T::toString)
         .collect(Collectors.joining(","));
   }

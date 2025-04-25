@@ -16,9 +16,14 @@ public class RecipeController {
     this.recipeService = recipeService;
   }
 
-
   @PostMapping("/search")
   public List<Recipe> searchRecipes(@RequestBody RecipeSearchRequest recipeSearchRequest) {
     return recipeService.searchRecipes(recipeSearchRequest);
+  }
+
+  @GetMapping("/filters")
+  public RecipeFilters getFilters() {
+    return recipeService.getRecipeFilters();
+
   }
 }
